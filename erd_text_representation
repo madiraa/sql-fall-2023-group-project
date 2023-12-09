@@ -16,3 +16,7 @@ vehicle_id (int, PK), make (varchar(50)), model (varchar(50)), year (smallint), 
 # table: vehicle_availability
 vehicle_id (int), available_start (date), available_end (date)
 
+# table: car_reservation
+customer_id (int, PK), vehicle_id  (int), start_date date  (end_date), date amount_due  (decimal(10,2)), return_date  (date)
+
+# table: bookings
