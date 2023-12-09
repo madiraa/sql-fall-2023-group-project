@@ -36,3 +36,7 @@ transaction_id (serial, PK), payment_method (varchar(10)), payment_processor (va
 # table: hotel_rooms
 
 room_id (serial, PK), hotel_id  (int), date (date), availability (boolean), price (decimal(6,2)), accomodation_type (varchar(100))
+
+# References: 
+airline_id in the flights table references airline_id in the airlines table
+flight_id in the flight_reservations table references flight_id in the flights table
