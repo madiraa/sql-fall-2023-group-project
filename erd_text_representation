@@ -3,3 +3,8 @@ flight_id (int, PK), airline_id (int), flightDate (date), startingAirport (varch
 
 # table: airlines
 airline_id (int, PK), name (varchar(255)), country_base(varchar(100))
+
+# table: flight_reservations
+flight_res_id (int, PK), flight_id (int), totalFare (decimal(10,2)), isBasicEconomy  varchar(10), isRefundable varchar(10)
+
+# table: reviews
