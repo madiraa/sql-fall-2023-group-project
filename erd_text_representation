@@ -8,3 +8,7 @@ airline_id (int, PK), name (varchar(255)), country_base(varchar(100))
 flight_res_id (int, PK), flight_id (int), totalFare (decimal(10,2)), isBasicEconomy  varchar(10), isRefundable varchar(10)
 
 # table: reviews
+review_id (int, PK),  flight_id (int), hotel_id (int), date (timestamp), rating (decimal(2,1)), review_text (varchar(500))
+
+# table: vehicle
+vehicle_id (int, PK), make (varchar(50)), model (varchar(50)), year (smallint), daily_rate (decimal(5,2))
