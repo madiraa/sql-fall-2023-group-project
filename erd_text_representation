@@ -12,3 +12,7 @@ review_id (int, PK),  flight_id (int), hotel_id (int), date (timestamp), rating 
 
 # table: vehicle
 vehicle_id (int, PK), make (varchar(50)), model (varchar(50)), year (smallint), daily_rate (decimal(5,2))
+
+# table: vehicle_availability
+vehicle_id (int), available_start (date), available_end (date)
+
