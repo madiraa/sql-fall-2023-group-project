@@ -20,3 +20,19 @@ vehicle_id (int), available_start (date), available_end (date)
 customer_id (int, PK), vehicle_id  (int), start_date date  (end_date), date amount_due  (decimal(10,2)), return_date  (date)
 
 # table: bookings
+booking_id (int), hotel_id (int), flight_id (int), vehicle_id (int), booked_date (date)
+
+# table: payment_method
+
+method_id (int, PK), payment_type (varchar(20)), card_number (varchar(50)), cvv (int), billing_zip (int), customer_id (int)
+
+# table: transactions
+
+transaction_id (serial, PK), payment_method (varchar(10)), payment_processor (varchar(20)), transaction_date (date), transaction_amount (decimal(6,2))
+
+# table: hotels
+ hotel_id (int, PK), name (varchar(100)), country (varchar(50)), city (varchar(100)), state (varchar(50)), stars (decimal(2,1))
+
+# table: hotel_rooms
+
+room_id (serial, PK), hotel_id  (int), date (date), availability (boolean), price (decimal(6,2)), accomodation_type (varchar(100))
