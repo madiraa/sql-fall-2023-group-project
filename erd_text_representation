@@ -1,0 +1,5 @@
+# table: flights 
+flight_id (int, PK), airline_id (int), flightDate (date), startingAirport (varchar(10)), desinationAirport (varchar(10)), travelDuration (int), isNonStop (bit)
+
+# table: airlines
+airline_id (int, PK), name (varchar(255)), country_base(varchar(100))
