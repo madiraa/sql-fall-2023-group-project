@@ -52,7 +52,7 @@ CREATE TABLE flights (
     startingAirport VARCHAR(10),
     destinationAirport VARCHAR(10),
     travelDuration INT,
-    isNonStop BIT,
+    isNonStop BOOLEAN,
     FOREIGN KEY (airline_id) REFERENCES airlines (airline_id)
 );
 
