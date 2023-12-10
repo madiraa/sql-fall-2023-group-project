@@ -1,131 +1,125 @@
--- Create Flights table
-CREATE TABLE Flights (
-    flight_id serial PRIMARY KEY,
-    airline_id int,
-    flightDate date,
-    startingAirport varchar(10),
-    destinationAirport varchar(10),
-    travelDuration int,
-    isNonStop varchar(10)
+-- Create the airlines table
+CREATE TABLE airlines (
+    airline_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    country_base VARCHAR(100)
 );
 
--- Create Flight_reservations table
-CREATE TABLE Flight_reservations (
-    flight_id int,
-    customer_id int,
-    totalFare decimal(10,2),
-    isBasicEconomy varchar(10),
-    isRefundable varchar(10)
+-- Create the hotels table
+CREATE TABLE hotels (
+    hotel_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    country VARCHAR(50),
+    city VARCHAR(100),
+    state VARCHAR(50),
+    stars DECIMAL(2, 1)
 );
 
--- Create Airlines table
-CREATE TABLE Airlines (
-    airline_id serial PRIMARY KEY,
-    name varchar(255),
-    country_base varchar(100)
+-- Create the vehicles table
+CREATE TABLE vehicles (
+    vehicle_id INT PRIMARY KEY,
+    make VARCHAR(50),
+    model VARCHAR(50),
+    year SMALLINT,
+    daily_rate DECIMAL(5, 2)
 );
 
--- Create Reviews table
-CREATE TABLE Reviews (
-    booking_id int,
-    customer_id int,
-    date timestamp,
-    rating decimal(2,1),
-    review_text varchar(500)
+-- Create the vehicle_availability table
+CREATE TABLE vehicle_availability (
+    vehicle_id INT,
+    available_start DATE,
+    available_end DATE,
+    PRIMARY KEY (vehicle_id, available_start, available_end),
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles (vehicle_id)
 );
 
--- Create Vehicle_type table
-CREATE TABLE Vehicle_type (
-    vehicle_id serial PRIMARY KEY,
-    weekly_rate decimal(5,2),
-    daily_rate decimal(5,2),
-    car_type varchar(20)
+-- Create the car_reservation table
+CREATE TABLE car_reservation (
+    customer_id INT PRIMARY KEY,
+    vehicle_id INT,
+    start_date DATE,
+    end_date DATE,
+    amount_due DECIMAL(10, 2),
+    return_date DATE,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles (vehicle_id)
 );
 
--- Create Vehicles table
-CREATE TABLE Vehicles (
-    vehicle_id serial PRIMARY KEY,
-    make varchar(50),
-    model varchar(50),
-    year smallint
+-- Create the flights table
+CREATE TABLE flights (
+    flight_id INT PRIMARY KEY,
+    airline_id INT,
+    flightDate DATE,
+    startingAirport VARCHAR(10),
+    destinationAirport VARCHAR(10),
+    travelDuration INT,
+    isNonStop BIT,
+    FOREIGN KEY (airline_id) REFERENCES airlines (airline_id)
 );
 
--- Create Vehicle_availability table
-CREATE TABLE Vehicle_availability (
-    vehicle_id int,
-    available_start date,
-    available_end date
+-- Create the flight_reservations table
+CREATE TABLE flight_reservations (
+    flight_res_id INT PRIMARY KEY,
+    flight_id INT,
+    totalFare DECIMAL(10, 2),
+    isBasicEconomy VARCHAR(10),
+    isRefundable VARCHAR(10),
+    FOREIGN KEY (flight_id) REFERENCES flights (flight_id)
 );
 
--- Create Car_rentals table
-CREATE TABLE Car_rentals (
-    customer_id int,
-    vehicle_id int,
-    start_date date,
-    return_date date,
-    amount_date decimal(10,2),
-    days_rented int
+-- Create the bookings table
+CREATE TABLE bookings (
+    booking_id INT PRIMARY KEY,
+    hotel_id INT,
+    flight_id INT,
+    vehicle_id INT,
+    booked_date DATE,
+    FOREIGN KEY (hotel_id) REFERENCES hotels (hotel_id),
+    FOREIGN KEY (flight_id) REFERENCES flights (flight_id),
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles (vehicle_id)
 );
 
--- Create Bookings table
-CREATE TABLE Bookings (
-    booking_id serial PRIMARY KEY,
-    hotel_id int,
-    flight_id int,
-    vehicle_id int,
-    booked_date date
+-- Create the customers table
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(255),
+    phone_number VARCHAR(22),
+    booking_id INT,
+    age INT,
+    gender VARCHAR(12),
+    payment_method VARCHAR(10),
+    FOREIGN KEY (booking_id) REFERENCES bookings (booking_id)
 );
 
--- Create Customer table
-CREATE TABLE Customer (
-    customer_id serial PRIMARY KEY,
-    first_name varchar(50),
-    last_name varchar(50),
-    email varchar(255),
-    phone_number varchar(22),
-    booking_id int,
-    age int,
-    gender varchar(12),
-    payment_method serial
+-- Create the reviews table
+CREATE TABLE reviews (
+    review_id INT PRIMARY KEY,
+    flight_id INT,
+    hotel_id INT,
+    date TIMESTAMP,
+    rating DECIMAL(2, 1),
+    review_text VARCHAR(500),
+    FOREIGN KEY (flight_id) REFERENCES flights (flight_id),
+    FOREIGN KEY (hotel_id) REFERENCES hotels (hotel_id)
 );
 
--- Create Payment_method table
-CREATE TABLE Payment_method (
-    customer_id int,
-    payment_type varchar(20),
-    card_number varchar(50),
-    cvv int,
-    billing_zip int
+-- Create the payment_method table
+CREATE TABLE payment_method (
+    method_id INT PRIMARY KEY,
+    payment_type VARCHAR(20),
+    card_number VARCHAR(50),
+    cvv INT,
+    billing_zip INT,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
 );
 
--- Create Transactions table
-CREATE TABLE Transactions (
-    booking_id int,
-    customer_id int,
-    payment_method varchar(10),
-    payment_processor varchar(20),
-    transaction_date date,
-    transaction_amount decimal(6,2)
-);
-
--- Create Hotels table
-CREATE TABLE Hotels (
-    hotel_id serial PRIMARY KEY,
-    name varchar(100),
-    accomodation_type varchar(100),
-    country varchar(100),
-    city varchar(100),
-    state varchar(50),
-    stars decimal(2,1)
-);
-
--- Create Hotel_prices table
-CREATE TABLE Hotel_prices (
-    hotel_id int,
-    year smallint,
-    month smallint,
-    weekend boolean,
-    holiday boolean,
-    nights int,
-    price decimal(6,2)
+-- Create the transactions table
+CREATE TABLE transactions (
+    transaction_id SERIAL PRIMARY KEY,
+    payment_method VARCHAR(10),
+    payment_processor VARCHAR(20),
+    transaction_date DATE,
+    transaction_amount DECIMAL(6, 2)
 );
