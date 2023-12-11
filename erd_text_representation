@@ -48,6 +48,7 @@ flight_id in the reviews table refernces flight_id in flights table
 vehicle_id in the vehicles table references vehicle_id in the vehicle_availability table
 booking_id in the customer table references booking_id in the bookings table
 hotel_id in the bookings table references in hotel_id in the hotels table
+hotel_id in the hotel_rooms table references hotel_id in the hotels table
 hotel_id in the reviews table references hotel_id in the hotels table
 customer_id in the payment_method table references customer_id in the customer table.
 hotel_id in the reviews table references hotel_id in the hotels table.
