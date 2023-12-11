@@ -123,3 +123,14 @@ CREATE TABLE transactions (
     transaction_date DATE,
     transaction_amount DECIMAL(6, 2)
 );
+
+-- Create the hotel_rooms table
+CREATE TABLE hotel_rooms (
+    room_id SERIAL PRIMARY KEY,
+    hotel_id INT,
+    date DATE,
+    availability BOOLEAN,
+    price DECIMAL(6, 2),
+    accomodation_type VARCHAR(100),
+    FOREIGN KEY (hotel_id) REFERENCES hotels (hotel_id)
+);
